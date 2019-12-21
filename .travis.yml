@@ -1,5 +1,14 @@
 language: python
 python:
-  - "3.6"
+- '3.6'
 script:
-  - make test
+- make test
+deploy:
+  provider: pypi
+  user: __token__
+  password:
+    secure: bqQFbs8nvMap18W04ObfdSJBnmeFHIDpf4MR9p9VzVGqx3vHWFhqXpZ2O0VZX/g7TCU6n1WZEBOSS35cDm/moEwCyEOYCsF4qQQjuHgqHCO0nY9GlsmWrrZ1f4JJVZivbBwFGDcjS+RC888u3ocGDvZ3lgbhaZdFVxpEkW2Oduavdx8t43xIOSE2+rU2XqZlrwM+1j9xGRAndGf8LJZKSuQn6o52ZVagk6MhGP67n+HLEJoUEWGd4JvMN2POU9kiR/zr9xQmoiRwD03iUN6ts1/GM/Q9+fxZES/TbaS616w7DbdrF89OKSye1qar4iJJAEzvYTdN4pAXv8PO+9Z/nX8Jptt9MTxf54/j4c6t4WOhfoFcAAWT6u7lxgm4+kVrXFPkOxQVnZ9dnW8I5XAZ8mkkJR66CfZjdEatSxdGuKNmTYhcJAH7W8pW6FDkPlxQput9Uo0mK7ExhbWq8zs35aapRYpHC9CKPe6fXMtt00z+4/f4beWcUjzawfpPvsVlfjP+QsD7DoHqN+EFR/JCNBRMCdnKCc8YLlU7n3agzAZFd9RtjwMY6KVqsqJhgVA57JHKhZ3oJDQ2S0FdToMAQMGgF6KB5C/xVmi8eWz05OL7JtmgT4zwAzT634Vat3zIUp4UWSWadUU4RnqF5iLIrKvlE+BJbuwXu1OMu0SNgok=
+  skip_existing: true
+  on:
+    tags: true
+    branch: support/1.0
