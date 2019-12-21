@@ -17,6 +17,8 @@ isort = "*"
 unify = "*"
 mypy = "*"
 pytype = "*"
+Sphinx = "*"
+sphinx-rtd-theme = "*"
 pact-state-provider = {path = ".",editable = true}
 
 [packages]
