@@ -1,0 +1,26 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+ipython = "*"
+pytest = "<5"
+pytest-xdist = "*"
+pytest-cov = "*"
+pytest-mock = "*"
+pytest-pythonpath = "*"
+pycodestyle = "*"
+pydocstyle = "*"
+flake8 = "*"
+isort = "*"
+unify = "*"
+mypy = "*"
+pytype = "*"
+pact-state-provider = {path = ".",editable = true}
+
+[packages]
+click = "*"
+
+[requires]
+python_version = "3.6"
