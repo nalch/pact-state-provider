@@ -3,8 +3,13 @@ pact-state-provider
 
 > Simple server to provide an endpoint used by pact to generate a provider state
 
+.. image:: https://badge.fury.io/py/pact-state-provider.svg
+    :target: https://badge.fury.io/py/pact-state-provider
+    :alt: PyPi Status
+
 .. image:: https://travis-ci.org/nalch/pact-state-provider.svg?branch=master
     :target: https://travis-ci.org/nalch/pact-state-provider
+    :alt: Travis Status
 
 .. image:: https://readthedocs.org/projects/pact-state-provider/badge/?version=latest
     :target: https://pact-state-provider.readthedocs.io/en/latest/?badge=latest
