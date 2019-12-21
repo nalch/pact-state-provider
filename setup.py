@@ -14,7 +14,7 @@ INSTALL_REQUIRES = ['setuptools', 'click']
 
 setup(
     name='pact_state_provider',
-    version='1.0.0',
+    version='1.0.1',
     packages=find_packages('src'),
     package_dir={'': 'src'},
     include_package_data=True,
@@ -26,7 +26,7 @@ setup(
     author_email='Scholze.Kristian@gmail.com',
     classifiers=[
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: Apache 2',
+        'License :: OSI Approved :: Apache Software License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3.6',
