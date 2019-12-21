@@ -6,6 +6,10 @@ pact-state-provider
 .. image:: https://travis-ci.org/nalch/pact-state-provider.svg?branch=master
     :target: https://travis-ci.org/nalch/pact-state-provider
 
+.. image:: https://readthedocs.org/projects/pact-state-provider/badge/?version=latest
+    :target: https://pact-state-provider.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
 Usage
 -----
 
