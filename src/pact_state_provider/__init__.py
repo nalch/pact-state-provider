@@ -66,14 +66,14 @@ class StateProviderServer(socketserver.TCPServer):
     default='pact_state_provider.example',
     help='Module containing the state providers.'
 )
-@click.option('--host', default='', help='Host for the endpoint.')
-@click.option('--port', default=1235, help='Port for the endpoint.')
+@click.option('--host', default='127.0.0.1', help='Host for the endpoint. Default: 127.0.0.1')
+@click.option('--port', default=1235, help='Port for the endpoint. Default: 1235')
 def pact_state_provider(base_module, host, port):
     """Start the state provider server on the specified host and port."""
     logging.info('start' + base_module)
     httpd = StateProviderServer((host, port), base_module=base_module)
     logging.info(
-        f'Serving at {host or "127.0.0.1"}:{port}. Using module {base_module}'
+        f'Serving at {host}:{port}. Using module {base_module}'
     )
     httpd.serve_forever()
     httpd.shutdown()
