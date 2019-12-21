@@ -41,7 +41,7 @@ Example::
 
 Not Long Enough;Will Read
 *************************
-When verifying contracts with `Pact<https://docs.pact.io/getting_started/provider_states>`_. a
+When verifying contracts with `Pact <https://docs.pact.io/getting_started/provider_states>`_ a
 state provider is called for the particular consumer with the state requested. A consumer
 :code:´TestConsumer´ with a contract starting with :code:`given('user exists')` requests the
 configured endpoint with the payload::
