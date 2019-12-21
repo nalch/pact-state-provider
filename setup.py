@@ -14,13 +14,14 @@ INSTALL_REQUIRES = ['setuptools', 'click']
 
 setup(
     name='pact_state_provider',
-    version='1.0.1',
+    version='1.0.2',
     packages=find_packages('src'),
     package_dir={'': 'src'},
     include_package_data=True,
     license='Apache-2.0',
     description='Simple server to provide an endpoint used by pact to generate a provider state',
     long_description=README,
+    long_description_content_type='text/x-rst',
     url='https://github.com/nalch/pact-state-provider',
     author='nalch',
     author_email='Scholze.Kristian@gmail.com',
