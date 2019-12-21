@@ -3,6 +3,9 @@ pact-state-provider
 
 > Simple server to provide an endpoint used by pact to generate a provider state
 
+.. image:: https://travis-ci.org/nalch/pact-state-provider.svg?branch=master
+    :target: https://travis-ci.org/nalch/pact-state-provider
+
 Usage
 -----
 
