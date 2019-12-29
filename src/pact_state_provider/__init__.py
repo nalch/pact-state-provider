@@ -4,7 +4,7 @@ import importlib
 import json
 import logging
 import socketserver
-from typing import Callable
+from typing import Callable, Optional
 
 import click
 
@@ -12,11 +12,14 @@ INVALID_CHARS = [' ', ',', ';', '{', '}', '(', ')', '\n', '\t', '=']
 TRANS_TABLE = str.maketrans({k: '_' for k in INVALID_CHARS})
 
 
-def import_state_func(base_module: str, state: str) -> Callable:
+def import_state_func(base_module: str, state: str) -> Optional[Callable]:
     """Translate the state name to a function name and get it from the base module."""
     logging.debug(f'Importing {base_module}')
-    pkg = importlib.import_module(base_module)
-    func = getattr(pkg, state.lower().translate(TRANS_TABLE))
+    try:
+        pkg = importlib.import_module(base_module)
+        func = getattr(pkg, state.lower().translate(TRANS_TABLE), None)
+    except ModuleNotFoundError:
+        return None
     return func
 
 
@@ -38,6 +41,9 @@ class StateProviderHandler(http.server.SimpleHTTPRequestHandler):
         state = data['state']
 
         state_func = import_state_func(self.base_module, state)
+        if not state_func:
+            logging.debug(f'No function {state} found in {self.base_module}')
+            return
         logging.debug(f'Calling provider state')
         state_func(consumer)
 

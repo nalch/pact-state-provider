@@ -8,6 +8,14 @@ def test_import():
     assert func == user_exists
 
 
+def test_missing_import():
+    func = import_state_func('missing_module', 'user exists')
+    assert func is None
+
+    func = import_state_func('importlib', 'missing')
+    assert func is None
+
+
 def test_example_provider(capsys):
     user_exists('TestClient')
     captured = capsys.readouterr()
