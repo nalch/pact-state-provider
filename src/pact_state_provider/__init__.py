@@ -17,8 +17,11 @@ def import_state_func(base_module: str, state: str) -> Optional[Callable]:
     logging.debug(f'Importing {base_module}')
     try:
         pkg = importlib.import_module(base_module)
-        func = getattr(pkg, state.lower().translate(TRANS_TABLE), None)
+        func_name = state.lower().translate(TRANS_TABLE)
+        logging.debug(f'Getting function "{func_name}"')
+        func = getattr(pkg, func_name, None)
     except ModuleNotFoundError:
+        logging.error(f'Could not import base module "{base_module}"')
         return None
     return func
 
@@ -33,22 +36,20 @@ class StateProviderHandler(http.server.SimpleHTTPRequestHandler):
 
     def do_POST(self):
         """Call the imported function based on the input dict."""
-        self.data_string = self.rfile.read(int(self.headers['Content-Length']))
-        self.send_response(200)
-
-        data = json.loads(self.data_string)
+        data_string = self.rfile.read(int(self.headers['Content-Length']))
+        data = json.loads(data_string)
         consumer = data['consumer']
         state = data['state']
 
         state_func = import_state_func(self.base_module, state)
-        if not state_func:
-            logging.debug(f'No function {state} found in {self.base_module}')
-            return
-        logging.debug(f'Calling provider state')
-        state_func(consumer)
+        if state_func is None:
+            logging.debug(f'No function "{state}" found in {self.base_module}. Ignoring.')
+        else:
+            logging.debug(f'Calling provider')
+            state_func(consumer)
 
-        # prepare response
-        self.send_head()  # pytype: disable=attribute-error
+        self.send_response(200)
+        self.end_headers()
 
 
 class StateProviderServer(socketserver.TCPServer):
@@ -74,13 +75,19 @@ class StateProviderServer(socketserver.TCPServer):
 )
 @click.option('--host', default='127.0.0.1', help='Host for the endpoint. Default: 127.0.0.1')
 @click.option('--port', default=1235, help='Port for the endpoint. Default: 1235')
-def pact_state_provider(base_module, host, port):
+@click.option(
+    '--log-level',
+    default='INFO',
+    help='Log Level Name (DEBUG, INFO, ...). Default: INFO'
+)
+def pact_state_provider(base_module, host, port, log_level):
     """Start the state provider server on the specified host and port."""
-    logging.info('start' + base_module)
+    logging.getLogger().setLevel(logging.getLevelName(log_level))
     httpd = StateProviderServer((host, port), base_module=base_module)
     logging.info(
         f'Serving at {host}:{port}. Using module {base_module}'
     )
+
     httpd.serve_forever()
     httpd.shutdown()
 
