@@ -14,7 +14,7 @@ INSTALL_REQUIRES = ['setuptools', 'click']
 
 setup(
     name='pact_state_provider',
-    version='1.0.7',
+    version='1.0.9',
     packages=find_packages('src'),
     package_dir={'': 'src'},
     include_package_data=True,
