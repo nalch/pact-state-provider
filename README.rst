@@ -31,22 +31,27 @@ Entrypoint :code:`pact-state-provider`::
 
     Usage: pact-state-provider [OPTIONS]
 
-    Start the state provider server on the specified host and port.
+      Start the state provider server on the specified host and port.
 
     Options:
-        --base-module TEXT  Module containing the state providers.
-        --host TEXT         Host for the endpoint.
-        --port INTEGER      Port for the endpoint.
-        --help              Show this message and exit.
+      --base-module TEXT  Module containing the state providers.
+      --host TEXT         Host for the endpoint. Default: 127.0.0.1
+      --port INTEGER      Port for the endpoint. Default: 1235
+      --log-level TEXT    Log Level Name (DEBUG, INFO, ...). Default: INFO
+      --help              Show this message and exit.
 
 TL;DR
 *****
 Example::
 
-    pact-state-provider --base-module my_provider.states
-    # pact requests a state:
-    # GET http://127.0.0.1:1235 {'consumer': 'TestConsumer', 'state': 'user exists'}
-    -> function "my_provider.states.user_exists('TestConsumer')" is executed
+    $ pact-state-provider --base-module my_provider.states
+
+::
+
+    $ http http://127.0.0.1:1235 consumer=TestConsumer state="user exists" --json
+    DEBUG: Importing my_provider.states
+    DEBUG: Getting function "user_exists"
+    -> "my_provider.states.user_exists('TestConsumer')" is called
 
 Not Long Enough;Will Read
 *************************
@@ -88,3 +93,13 @@ are listed below.
 * `make lint` - Get a codestyle report about your code
 * `make plain-lint` - Get a codestyle report without rebuilding the project
 * `make` - Equivalent to `make test lint docs sdist`
+
+A New Version
+*************
+1. Cherrypick all wanted commits onto the support branch (f.e. support/1.0)
+2. Push the commits
+3. Increment the version in `setup.py` and update the changelog and commit
+4. Tag the commit with the new version (f.e. v1.0.8)
+5. Push the version commit
+
+Travis will build the new version and upload it to Pypi automatically when finding a tag on the support branch.
